@@ -18,7 +18,7 @@ public class ListCompaniesController {
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    public List<Company> createCompany() {
-        return listCompaniesUsecase.execute();
+    public List<Company> createCompany(@RequestParam( value = "searchTerm", required = false) String searchTerm) {
+        return listCompaniesUsecase.execute(searchTerm);
     }
 }

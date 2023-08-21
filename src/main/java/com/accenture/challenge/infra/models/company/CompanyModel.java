@@ -10,7 +10,7 @@ import lombok.*;
 @Table(name="companies")
 @Entity
 @NoArgsConstructor @AllArgsConstructor
-@ToString(exclude = "id")
+@EqualsAndHashCode
 public class CompanyModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +23,7 @@ public class CompanyModel {
          private String cep;
 
     public CompanyModel(Company company) {
+         this.id = company.getId();
         this.tradeName = company.getTradeName();
         this.document = company.getDocument();
         this.cep = company.getCep();
