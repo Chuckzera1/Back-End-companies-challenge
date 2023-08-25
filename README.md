@@ -2,11 +2,12 @@
 Banck-env Java
 
 ## Principais Tecnologias:
-    Spring-boot, Maven, Postgres, 
+    Spring-boot, Maven, Postgres, JPA
 
 ## To run api: 
     You can run using itellij (Shift + F10) or you can use mvn
     Tou use mvn, run `mvn install` then `mvn spring-boot:run`
+    Must run docker
 
 ## Para rodar a api
     É possível rodar pelo intellij (Shift+F10) ou usar o mvn.
