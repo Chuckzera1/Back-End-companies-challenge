@@ -15,9 +15,8 @@ Banck-env Java
 
 ## Sobre a api:
   A API tem todas as rotas de CRUD para empresas, porém ainda não é possível relacionar com Fornecedores.
-  A parte de fornecedores é possível criar e listar os dados, mas não é possível deletar e nem atualizar no momento.
-  Lembrando que ainda não é possível relacionar as entidades.
-  A relação existe, mas não existe rota, nem usecase ou query que crie o vínculo de fato.
+  A parte de fornecedores é possível criar, listar, deletar e atualizar os dados.
+  Também é possível relacionar fornecedor e empresa.
 
 ## Arquitetura:
   Foi aplicada a **Clean Architeture**, uma arquitetura que tenta dividir a api em camadas, pra deixar as partes mais independentes.<br>
