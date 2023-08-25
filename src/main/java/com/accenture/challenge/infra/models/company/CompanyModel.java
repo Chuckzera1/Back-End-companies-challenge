@@ -1,9 +1,11 @@
 package com.accenture.challenge.infra.models.company;
 
 import com.accenture.challenge.utils.entities.Company;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,8 +26,13 @@ public class CompanyModel {
     private String document;
     @Column(nullable = false)
     private String cep;
+    @Column(nullable = false)
+    private String stateUf;
+    @JsonIgnore
     @ManyToMany
-    @JoinTable(name = "relation_company_supplier", joinColumns = @JoinColumn(name = "company_id"), inverseJoinColumns = @JoinColumn(name = "supplier_id"))
+    @JoinTable(name = "relation_company_supplier", joinColumns = @JoinColumn(name = "company_id"), inverseJoinColumns = @JoinColumn(name = "supplier_id"), uniqueConstraints = {@UniqueConstraint(
+            columnNames = {"company_id", "supplier_id"})}
+    )
     private List<SupplierModel> suppliers;
 
     public CompanyModel(Company company) {
@@ -33,10 +40,21 @@ public class CompanyModel {
         this.tradeName = company.getTradeName();
         this.document = company.getDocument();
         this.cep = company.getCep();
+        this.stateUf = company.getStateUf();
         this.suppliers = company.getSuppliers().stream().map(SupplierModel::new).toList();
     }
 
     public Company toCompany() {
-        return new Company(this.getId(), this.getTradeName(), this.getDocument(), this.getCep());
+
+        return new Company(
+                this.getId(),
+                this.getTradeName(),
+                this.getDocument(),
+                this.getCep(),
+                this.getStateUf(),
+                new ArrayList<>(this.getSuppliers().stream()
+                        .map(SupplierModel::toSupplier)
+                        .toList())
+        );
     }
 }

@@ -1,6 +1,7 @@
 package com.accenture.challenge.infra.models.company;
 
 import com.accenture.challenge.utils.entities.Supplier;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,6 +32,7 @@ public class SupplierModel {
     @Column(nullable = false)
     private String cep;
     private Date birthDate;
+    @JsonIgnore
     @ManyToMany(mappedBy = "suppliers")
     private List<CompanyModel> companies;
 
@@ -43,17 +45,19 @@ public class SupplierModel {
         this.rg = supplier.getRg();
         this.cep = supplier.getCep();
         this.birthDate = supplier.getBirthDate();
+        this.companies = supplier.getCompanies().stream().map(CompanyModel::new).toList();
     }
 
     public Supplier toSupplier(){
         return new Supplier(
                 this.getId(),
-        this.getName(),
-        this.getEmail(),
-        this.getDocument(),
-        this.getDocumentType(),
-        this.getRg(),
-        this.getCep(),
-        this.getBirthDate());
-    };
+            this.getName(),
+            this.getEmail(),
+            this.getDocument(),
+            this.getDocumentType(),
+            this.getRg(),
+            this.getCep(),
+            this.getBirthDate()
+        );
+    }
 }
